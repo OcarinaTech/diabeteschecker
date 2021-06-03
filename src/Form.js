@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import axios from "axios";
+import { useForm } from "react-hook-form";
 import {
   FormControl,
   FormLabel,
@@ -18,6 +18,29 @@ import {
 } from "@material-ui/core";
 
 const Form = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  //const onSubmit = (data) => console.log(data);
+
+  const onSubmit = (data) => {
+    console.log("line 29: " + data);
+    console.log(data);
+    fetch("/api/formCheck", {
+      method: "POST",
+      headers: { "Content-Type": "Application/JSON" },
+      //body: JSON.stringify(data),
+      body: data,
+    }).then((data) => {
+      console.log("After converting to JSON...");
+      console.log(data);
+    });
+  };
+
+  /*
   const [data, setData] = React.useState(null);
 
   React.useEffect(() => {
@@ -26,15 +49,18 @@ const Form = () => {
       .then((data) => setData(data.message));
   }, []);
 
+  <p>{!data ? "Loading..." : data}</p>
+
+  */
   return (
-    <form>
-      <p>{!data ? "Loading..." : data}</p>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
         <div>How old are you?</div>
         <Input
           type="number"
           name="age"
           required
+          {...register("age")}
           InputProps={{
             inputProps: {
               max: 120,
@@ -50,12 +76,14 @@ const Form = () => {
             <RadioGroup aria-label="gender" name="gender" required>
               <FormControlLabel
                 value="1"
+                {...register("gender")}
                 control={<Radio required={true} />}
                 label="Male"
                 required
               />
               <FormControlLabel
                 value="0"
+                {...register("gender")}
                 control={<Radio required={true} />}
                 label="Female"
               />
@@ -153,8 +181,9 @@ const Form = () => {
               />
             </RadioGroup>
           </Grid>
+
           <Grid container item xs={6} direction="column">
-            <FormLabel component="legend">
+            {/* <FormLabel component="legend">
               Are you experiencing visual blurring?
             </FormLabel>
             <RadioGroup aria-label="blurring" name="blurring" required>
@@ -261,7 +290,9 @@ const Form = () => {
                 control={<Radio required={true} />}
                 label="No"
               />
-            </RadioGroup>
+            </RadioGroup> */}
+            <input type="submit" />
+            {/*
             <Button
               type="submit"
               value="Submit"
@@ -272,6 +303,7 @@ const Form = () => {
             >
               Submit
             </Button>
+            */}
           </Grid>
         </Grid>
       </FormControl>
