@@ -1,0 +1,32 @@
+
+Gridsearch finding best models for Early Stage Diabetes Risk Prevention
+
+The Best ADA Boost model for Early Stage Diabetes Risk Prevention
+0.964516129032258
+{'base_estimator__ccp_alpha': 0.04, 'base_estimator__max_depth': 100, 'n_estimators': 50}
+Mean Test Score 0.964516129032258
+STD Dev Test Score 0.041935483870967745
+Confusion for ADA Grid Prediction
+[[ 80   7]
+ [  2 119]]
+Accuracy:
+0.9567307692307693
+Misclassificiation rate:
+0.04326923076923077
+Sensitivity:
+0.9834710743801653
+Specificity:
+0.9195402298850575
+False Positive Rate:
+0.08045977011494253
+Precision:
+0.9444444444444444
+
+
+
+Time to Train Optimal ada: 
+0.084238859009929
+Time to Query Optimal ada: 
+0.008738663993426599
+
+

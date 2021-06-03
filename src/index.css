@@ -11,10 +11,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-#root {
-    margin: 1em 3em;
 
-}
-#root legend {
-    margin-top: 2em;
-}
