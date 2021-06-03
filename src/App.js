@@ -5,7 +5,7 @@ import { FormControl, Input, InputLabel, FormHelperText } from '@material-ui/cor
 function App() {
   return (
     <div>
-      <div>Do you have Diabetes?</div>
+      <h1>Do you have Diabetes?</h1>
       <Form />
     </div>
   );
