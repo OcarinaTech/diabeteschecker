@@ -1,21 +1,17 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import { useForm } from "react-hook-form";
 import {
   FormControl,
   FormLabel,
   Button,
-  TextField,
   Grid,
   Radio,
   FormControlLabel,
   RadioGroup,
   Input,
-  InputLabel,
-  FormHelperText,
 } from "@material-ui/core";
+import { json } from "body-parser";
 
 const Form = () => {
   const {
@@ -27,17 +23,18 @@ const Form = () => {
   //const onSubmit = (data) => console.log(data);
 
   const onSubmit = (data) => {
-    console.log("line 29: " + data);
-    console.log(data);
+    console.log("line 29: ", data);
     fetch("/api/formCheck", {
       method: "POST",
       headers: { "Content-Type": "Application/JSON" },
-      //body: JSON.stringify(data),
-      body: data,
-    }).then((data) => {
+      body: JSON.stringify(data),
+      // body: data,
+    })
+    .then((res) => res.toString())
+    .then((data) => {
       console.log("After converting to JSON...");
       console.log(data);
-    });
+    }).catch((err) => console.log("Get Category Error :", err));
   };
 
   /*
@@ -94,11 +91,13 @@ const Form = () => {
             <RadioGroup aria-label="pee" name="pee" required>
               <FormControlLabel
                 value="1"
+                {...register("pee")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("pee")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -109,11 +108,13 @@ const Form = () => {
             <RadioGroup aria-label="thirsty" name="thirsty" required>
               <FormControlLabel
                 value="1"
+                {...register("thirsty")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("thirsty")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -124,11 +125,13 @@ const Form = () => {
             <RadioGroup aria-label="weightLoss" name="weightLoss" required>
               <FormControlLabel
                 value="1"
+                {...register("weightLoss")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("weightLoss")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -139,11 +142,13 @@ const Form = () => {
             <RadioGroup aria-label="weak" name="weak" required>
               <FormControlLabel
                 value="1"
+                {...register("weak")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("weak")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -155,11 +160,13 @@ const Form = () => {
             <RadioGroup aria-label="hungry" name="hungry" required>
               <FormControlLabel
                 value="1"
+                {...register("hungry")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("hungry")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -171,11 +178,13 @@ const Form = () => {
             <RadioGroup aria-label="yeast" name="yeast" required>
               <FormControlLabel
                 value="1"
+                {...register("yeast")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("yeast")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -183,17 +192,19 @@ const Form = () => {
           </Grid>
 
           <Grid container item xs={6} direction="column">
-            {/* <FormLabel component="legend">
+            <FormLabel component="legend">
               Are you experiencing visual blurring?
             </FormLabel>
             <RadioGroup aria-label="blurring" name="blurring" required>
               <FormControlLabel
                 value="1"
+                {...register("blurring")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("blurring")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -205,11 +216,13 @@ const Form = () => {
             <RadioGroup aria-label="irritable" name="irritable" required>
               <FormControlLabel
                 value="1"
+                {...register("irritable")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("irritable")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -221,11 +234,13 @@ const Form = () => {
             <RadioGroup aria-label="healing" name="healing" required>
               <FormControlLabel
                 value="1"
+                {...register("healing")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("healing")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -237,11 +252,13 @@ const Form = () => {
             <RadioGroup aria-label="paralysis" name="paralysis" required>
               <FormControlLabel
                 value="1"
+                {...register("paralysis")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("paralysis")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -253,11 +270,13 @@ const Form = () => {
             <RadioGroup aria-label="stiffness" name="stiffness" required>
               <FormControlLabel
                 value="1"
+                {...register("stiffness")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("stiffness")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -268,11 +287,13 @@ const Form = () => {
             <RadioGroup aria-label="alopecia" name="alopecia" required>
               <FormControlLabel
                 value="1"
+                {...register("alopecia")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("alopecia")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -282,17 +303,19 @@ const Form = () => {
             <RadioGroup aria-label="obese" name="obese" required>
               <FormControlLabel
                 value="1"
+                {...register("obese")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
+                {...register("obese")}
                 control={<Radio required={true} />}
                 label="No"
               />
-            </RadioGroup> */}
-            <input type="submit" />
-            {/*
+            </RadioGroup>
+            {/* <input type="submit" /> */}
+
             <Button
               type="submit"
               value="Submit"
@@ -303,7 +326,7 @@ const Form = () => {
             >
               Submit
             </Button>
-            */}
+           
           </Grid>
         </Grid>
       </FormControl>
