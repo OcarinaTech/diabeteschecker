@@ -81,7 +81,7 @@ def compare(dataSet, setName):
 def runExperiment():
     f = open("grid_search_results.txt", 'w')
     sys.stdout = f
-    diabetes_dataSet = pd.read_csv("./data/diabetes_data_upload.csv")
+    diabetes_dataSet = pd.read_csv("../data/diabetes_data_upload.csv")
     compare(diabetes_dataSet,"Early Stage Diabetes Risk Prevention")
     f.close()
 

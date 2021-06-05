@@ -30,11 +30,12 @@ const Form = () => {
       body: JSON.stringify(data),
       // body: data,
     })
-    .then((res) => res.toString())
-    .then((data) => {
-      console.log("After converting to JSON...");
-      console.log(data);
-    }).catch((err) => console.log("Get Category Error :", err));
+      .then((res) => res.toString())
+      .then((data) => {
+        console.log("After converting to JSON...");
+        console.log(data);
+      })
+      .catch((err) => console.log("Get Category Error :", err));
   };
 
   /*
@@ -122,16 +123,16 @@ const Form = () => {
             <FormLabel component="legend">
               Have you recently experienced sudden weight loss?{" "}
             </FormLabel>
-            <RadioGroup aria-label="weightLoss" name="weightLoss" required>
+            <RadioGroup aria-label="weightloss" name="weightloss" required>
               <FormControlLabel
                 value="1"
-                {...register("weightLoss")}
+                {...register("weightloss")}
                 control={<Radio required={true} />}
                 label="Yes"
               />
               <FormControlLabel
                 value="0"
-                {...register("weightLoss")}
+                {...register("weightloss")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -155,7 +156,7 @@ const Form = () => {
             </RadioGroup>
 
             <FormLabel component="legend">
-              Do you frequently feel excessively hunngry?
+              Do you frequently feel excessively hungry?
             </FormLabel>
             <RadioGroup aria-label="hungry" name="hungry" required>
               <FormControlLabel
@@ -189,9 +190,6 @@ const Form = () => {
                 label="No"
               />
             </RadioGroup>
-          </Grid>
-
-          <Grid container item xs={6} direction="column">
             <FormLabel component="legend">
               Are you experiencing visual blurring?
             </FormLabel>
@@ -209,7 +207,9 @@ const Form = () => {
                 label="No"
               />
             </RadioGroup>
+          </Grid>
 
+          <Grid container item xs={6} direction="column">
             <FormLabel component="legend">
               Are you frequently irritable?{" "}
             </FormLabel>
@@ -223,6 +223,24 @@ const Form = () => {
               <FormControlLabel
                 value="0"
                 {...register("irritable")}
+                control={<Radio required={true} />}
+                label="No"
+              />
+            </RadioGroup>
+
+            <FormLabel component="legend">
+              Do you frequently experience itching?
+            </FormLabel>
+            <RadioGroup aria-label="itching" name="itching" required>
+              <FormControlLabel
+                value="1"
+                {...register("itching")}
+                control={<Radio required={true} />}
+                label="Yes"
+              />
+              <FormControlLabel
+                value="0"
+                {...register("itching")}
                 control={<Radio required={true} />}
                 label="No"
               />
@@ -326,7 +344,6 @@ const Form = () => {
             >
               Submit
             </Button>
-           
           </Grid>
         </Grid>
       </FormControl>
