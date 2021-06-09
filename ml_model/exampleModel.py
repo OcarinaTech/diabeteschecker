@@ -46,7 +46,7 @@ obese = int(sys.argv[16])
 X = [[age, gender, pee, thirsty, weightloss, weak, hungry, yeast, blurring,
       itching, irritable, healing, paralysis, stiffness, alopecia, obese]]
 
-print(X)
+# print(X)
 
 # GET THE PICKLE
 pickle_path = 'ml_model/ada_pickle_model.pkl'
@@ -54,8 +54,8 @@ with open(pickle_path, 'rb') as file:
     clf = pickle.load(file)
 pred_prob = clf.predict_proba(X)
 pred_label = clf.predict(X)
-print(pred_prob)
-print(pred_label)
+# print(pred_prob)
+# print(pred_label)
 # RETURN RESULTS IN JSON
 print('{ "pred":"'+str(pred_label[0]) +
       '", "pred_prob":"'+str(pred_prob[0])+'"}')

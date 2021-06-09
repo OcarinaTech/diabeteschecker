@@ -18,49 +18,8 @@ app.get("/api/ping", function (req, res) {
 });
 
 app.post("/api/formCheck", FormController.sendDataToModel, (req, res) => {
-  // console.log("hey from server.js line 17");
-  // console.log(req);
-  // const {
-  //   age,
-  //   alopecia,
-  //   blurring,
-  //   gender,
-  //   healing,
-  //   hungry,
-  //   irritable,
-  //   obese,
-  //   paralysis,
-  //   pee,
-  //   stiffness,
-  //   thirsty,
-  //   weak,
-  //   weightLoss,
-  //   yeast} = req.body;
-
-  // console.log(age,
-  //   alopecia,
-  //   blurring,
-  //   gender,
-  //   healing,
-  //   hungry,
-  //   irritable,
-  //   obese,
-  //   paralysis,
-  //   pee,
-  //   stiffness,
-  //   thirsty,
-  //   weak,
-  //   weightLoss,
-  //   yeast);
-
-  //   const { spawn } = require("child_process");
-  //   const pyProg = spawn("python", ["ml_model/exampleModel.py", age, obese, gender]);
-  //   pyProg.stdout.on("data", function (data) {
-  //   console.log(data.toString());
-  //   // res.write(data);
-  //   // res.end("end");
-  //   });
-    // return next(res);
+  // return next(res);
+  console.log("server.js line22 :", res.locals.result);
   return res.status(200).send(res.locals.result);
 });
 
@@ -110,8 +69,7 @@ app.use((req, res) => res.status(404).send("Error 404"));
 //   return res.status(errorObj.status).json(errorObj.message);
 // });
 
-
 //set port:
-app.listen(PORT, '127.0.0.1');
+app.listen(PORT, "127.0.0.1");
 
-console.log('Listening on port: ', PORT);
+console.log("Listening on port: ", PORT);

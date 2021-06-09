@@ -68,13 +68,14 @@ FormController.sendDataToModel = (req, res, next) => {
     { cwd: __dirname }
   );
   pyProg.stdout.on("data", function (data) {
-    res.locals.result = data;
-    console.log(data.toString());
+    console.log("FormController.js line 72: ", data.toString());
+    res.locals.result = data.toString();
+    return next();
   });
-  process.on("close", (code) => {
-    res.send(result);
-  });
-  return next();
+
+  // process.on("close", (data) => {
+  //   //res.send(result);
+  // });
 };
 
 // FormController.sendDataToModelGoodOne =  (req, res, next) => {
