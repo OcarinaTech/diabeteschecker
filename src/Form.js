@@ -58,16 +58,17 @@ const Form = () => {
 
   const formatResult = (pred, predProb) => {
     let result = [];
-    if (pred === 1 && predProb[1] > 0.6) {
-      result[0] = "Warning you got diabetes";
-    } else if (pred === 0 && predProb[0] > 0.6) {
-      result[0] = "You likely do not have diabetes, pred";
+    if (pred === "1" && predProb[1] > 0.6) {
+      result.desc = "Warning you got diabetes";
+    } else if (pred === "0" && predProb[0] > 0.6) {
+      result.desc = "You likely do not have diabetes, pred";
     } else {
-      result[0] = "The model is not clear";
+      result.desc = "The model is not clear";
     }
-    result[1] = pred;
-    result[2] = predProb[0];
-    result[3] = predProb[1];
+    result.pred = pred;
+    result.predText = pred ? "Positive" : "Negative";
+    result.negConf = predProb[0];
+    result.posConf = predProb[1];
     return result;
   };
   /*
@@ -382,9 +383,16 @@ const Form = () => {
           </Grid>
         </FormControl>
       </form>
-      <Dialog open={open} onClick={handleClickClose}>
+      <Dialog open={open} onClick={handleClickClose} className="formDialog">
         <h2>Result is.....</h2>
-        {result}
+        <p>{result.desc}</p>
+        <p>Model Prediction: {result.pred} </p>
+        <p>
+          The model predicts that you are {result.predText} for prediabetic
+          symptoms
+        </p>
+        <p>Model Confidence in Negative Prediction: {result.negConf}</p>
+        <p>Model Confidence in Positive Prediction: {result.posConf}</p>
       </Dialog>
     </>
   );
