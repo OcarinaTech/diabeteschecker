@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import "./index.css";
 import { useForm } from "react-hook-form";
@@ -13,7 +13,7 @@ import {
   RadioGroup,
   Input,
 } from "@material-ui/core";
-import { json } from "body-parser";
+// import { json } from "body-parser";
 
 const Form = () => {
   const [result, updateResult] = useState([]);
@@ -28,14 +28,12 @@ const Form = () => {
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
   } = useForm();
   //const onSubmit = (data) => console.log(data);
 
   const onSubmit = (data) => {
     console.log("line 29: ", data);
-    fetch("/api/formCheck", {
+    fetch("http://localhost:3001/api/formCheck", {
       method: "POST",
       headers: { "Content-Type": "Application/JSON" },
       body: JSON.stringify(data),
@@ -53,7 +51,7 @@ const Form = () => {
         updateResult(formatResult(pred, predProb));
         handleClickOpen();
       })
-      .catch((err) => console.log("Get Category Error :", err));
+      .catch(err => console.log("error"));
   };
 
   const formatResult = (pred, predProb) => {
@@ -87,14 +85,14 @@ const Form = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
-          <div>How old are you?</div>
+          <div>How old are you? aaa</div>
           <Input
             type="number"
             name="age"
             required
             {...register("age")}
-            InputProps={{
-              inputProps: {
+            inputprops={{
+              inputprops: {
                 max: 120,
                 min: 1,
               },

@@ -3,10 +3,28 @@ const app = express();
 const PORT = 3001;
 const FormController = require("./FormController");
 // const spawn = require("child_process").spawn;
+const path = require('path');
+const cors = require('cors')
+const corsOptions = {
+  origin: 'http://localhost',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.static("./"));
+app.use(express.static(path.resolve(__dirname, '/build/static')));
+// app.use(express.static("./build"));
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "localhost"); // update to match the domain you will make the request from
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
+
+// All other GET requests not handled before will return our React app
+app.get('/*', cors(corsOptions), (req, res) => {
+  res.sendFile(path.resolve(__dirname, '/build', 'index.html'));
+});
 
 // create endpoints and routes:
 app.get("/", function (req, res) {
@@ -17,9 +35,11 @@ app.get("/api/ping", function (req, res) {
   return res.send("pong");
 });
 
-app.post("/api/formCheck", FormController.sendDataToModel, (req, res) => {
+app.post("/api/formCheck",  cors(corsOptions), FormController.sendDataToModel, (req, res) => {
   // return next(res);
-  console.log("server.js line22 :", res.locals.result);
+  // res.header("Access-Control-Allow-Origin", "127.0.0.1"); // update to match the domain you will make the request from
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  // console.log("server.js line22 :", res.locals.result);
   return res.status(200).send(res.locals.result);
 });
 
