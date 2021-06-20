@@ -35,7 +35,10 @@ const Form = () => {
     console.log("line 29: ", data);
     fetch("http://localhost:3001/api/formCheck", {
       method: "POST",
-      headers: { "Content-Type": "Application/JSON" },
+      // mode: "no-cors",
+      headers: {
+        "Content-Type": "Application/x-www-form-urlencoded"
+     },
       body: JSON.stringify(data),
       // body: data,
     })
@@ -51,7 +54,7 @@ const Form = () => {
         updateResult(formatResult(pred, predProb));
         handleClickOpen();
       })
-      .catch(err => console.log("error"));
+      .catch(err => console.log("error", err));
   };
 
   const formatResult = (pred, predProb) => {
@@ -85,7 +88,7 @@ const Form = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
-          <div>How old are you? aaa</div>
+          <div>How old are you? hhh</div>
           <Input
             type="number"
             name="age"

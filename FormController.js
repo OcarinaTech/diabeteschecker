@@ -3,6 +3,8 @@ const FormController = {};
 console.log("FormController called")
 FormController.sendDataToModel = (req, res, next) => {
   console.log("hey from FormController.js line 4");
+  // console.log(req)
+  console.log( typeof Object.keys(req.body)[0], JSON.parse(Object.keys(req.body)[0]))
   const {
     age,
     alopecia,
@@ -20,7 +22,7 @@ FormController.sendDataToModel = (req, res, next) => {
     weak,
     weightloss,
     yeast,
-  } = req.body;
+  } = JSON.parse(Object.keys(req.body)[0]);
 
   /* YOU MUST USE THIS ORDER: 
     Age,Gender,pee,thirsty,weightloss,weak,hungry,yeast,blurring,itching,irritable,healing,paralysis,stiffness,alopecia,obese  
