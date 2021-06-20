@@ -13,7 +13,6 @@ import {
   RadioGroup,
   Input,
 } from "@material-ui/core";
-// import { json } from "body-parser";
 
 const Form = () => {
   const [result, updateResult] = useState([]);

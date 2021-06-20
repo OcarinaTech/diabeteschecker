@@ -1,9 +1,8 @@
 const FormController = {};
-// const spawn = require("child_process").spawn;
+
 console.log("FormController called")
 FormController.sendDataToModel = (req, res, next) => {
   console.log("hey from FormController.js line 4");
-  // console.log(req)
   console.log( typeof Object.keys(req.body)[0], JSON.parse(Object.keys(req.body)[0]))
   const {
     age,
@@ -74,10 +73,6 @@ FormController.sendDataToModel = (req, res, next) => {
     res.locals.result = data.toString();
     return next();
   });
-
-  // process.on("close", (data) => {
-  //   //res.send(result);
-  // });
 };
 
 // FormController.sendDataToModelGoodOne =  (req, res, next) => {

@@ -5,11 +5,11 @@ const FormController = require("./FormController");
 // const spawn = require("child_process").spawn;
 const path = require('path');
 const cors = require('cors');
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  methods: "POST",
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+// const corsOptions = {
+//   origin: 'http://localhost:3000',
+//   methods: "POST",
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// };
 
 app.use(express.json({
   type: ['Application/json', 'text/plain']
@@ -17,14 +17,6 @@ app.use(express.json({
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, './build/static')));
 app.use(express.static("./build"));
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "localhost"); // update to match the domain you will make the request from
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
-//cors(corsOptions),
-// All other GET requests not handled before will return our React app
-
 
 // create endpoints and routes:
 app.get("/", function (req, res) {
