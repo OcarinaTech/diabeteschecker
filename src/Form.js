@@ -37,6 +37,7 @@ const Form = () => {
       // mode: "no-cors",
       headers: {
         "Content-Type": "Application/x-www-form-urlencoded"
+        // "Content-Type": "Application/json"
      },
       body: JSON.stringify(data),
       // body: data,
@@ -385,14 +386,14 @@ const Form = () => {
       </form>
       <Dialog open={open} onClick={handleClickClose} className="formDialog">
         <h2>Result is.....</h2>
-        <p>{result.desc}</p>
-        <p>Model Prediction: {result.pred} </p>
+        <p><strong>{result.desc}</strong></p>
+        {/* <p>Model Prediction: {result.pred} </p> */}
         <p>
-          The model predicts that you are {result.predText} for prediabetic
+          The machine learning model predicts that you are <strong>{result.predText} </strong>for prediabetic
           symptoms
         </p>
-        <p>Model Confidence in Negative Prediction: {result.negConf}</p>
-        <p>Model Confidence in Positive Prediction: {result.posConf}</p>
+        <p>Model Confidence in Negative Prediction: {Math.floor(result.negConf * 100)} % </p>
+        <p>Model Confidence in Positive Prediction: {Math.floor(result.posConf * 100)} %</p>
       </Dialog>
     </>
   );

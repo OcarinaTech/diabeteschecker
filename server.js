@@ -5,15 +5,13 @@ const FormController = require("./FormController");
 // const spawn = require("child_process").spawn;
 const path = require('path');
 const cors = require('cors');
-// const corsOptions = {
-//   origin: 'http://localhost:3000',
-//   methods: "POST",
-//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// };
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: "POST",
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
-app.use(express.json({
-  type: ['Application/json', 'text/plain']
-}));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, './build/static')));
 app.use(express.static("./build"));
@@ -27,10 +25,10 @@ app.get("/api/ping", function (req, res) {
   return res.send("pong");
 });
 
-app.post("/api/formCheck", cors(), FormController.sendDataToModel, (req, res) => {
+app.post("/api/formCheck", cors(corsOptions), FormController.sendDataToModel, (req, res) => {
   console.log("server.js", res.locals.result)
-  // res.header("Access-Control-Allow-Origin", "localhost"); 
-  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   return res.status(200).send(res.locals.result);
 });
 

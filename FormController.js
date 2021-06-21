@@ -3,7 +3,9 @@ const FormController = {};
 console.log("FormController called")
 FormController.sendDataToModel = (req, res, next) => {
   console.log("hey from FormController.js line 4");
+  console.log( typeof req.body);
   console.log( typeof Object.keys(req.body)[0], JSON.parse(Object.keys(req.body)[0]))
+
   const {
     age,
     alopecia,
