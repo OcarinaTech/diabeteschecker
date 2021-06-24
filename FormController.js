@@ -1,5 +1,4 @@
 const FormController = {};
-
 console.log("FormController called")
 FormController.sendDataToModel = (req, res, next) => {
   console.log("hey from FormController.js line 4");

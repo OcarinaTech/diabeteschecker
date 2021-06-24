@@ -13,6 +13,7 @@ import {
   RadioGroup,
   Input,
 } from "@material-ui/core";
+// import { json } from "body-parser";
 
 const Form = () => {
   const [result, updateResult] = useState([]);
@@ -32,7 +33,7 @@ const Form = () => {
 
   const onSubmit = (data) => {
     console.log("line 29: ", data);
-    fetch("/api/formCheck", {
+    fetch("http://localhost:3001/api/formCheck", {
       method: "POST",
       // mode: "no-cors",
       headers: {
@@ -88,7 +89,7 @@ const Form = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
-          <div>How old are you? hhh</div>
+          <div>How old are you? </div>
           <Input
             type="number"
             name="age"
