@@ -4,33 +4,36 @@ const PORT = 3001;
 const FormController = require("./FormController");
 // const spawn = require("child_process").spawn;
 const path = require('path');
-const cors = require('cors');
-const corsOptions = {
-  origin: 'http://172.26.9.82:3000',
-  //origin: 'http://www.ocarinadev.com:3000',
-  //origin: "*",
-  methods: "POST",
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-
+const cors = require('cors')
+//const corsOptions = {
+//	origin: 'http://localhost:3000',
+//	methods: "POST",
+ // optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+//}
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.resolve(__dirname, './build/static')));
-app.use(express.static("./build"));
+app.use(express.static(path.join(__dirname, './build/static')));
+
 
 // create endpoints and routes:
-app.get("/", function (req, res) {
+//app.get('/', function (req, res) {
+//  res.sendFile(path.join(__dirname, '/build', 'index.html'));
+//});
+
+/* app.get("/", function (req, res) {
   res.send("Hello from Express JS!");
 });
+*/
 
 app.get("/api/ping", function (req, res) {
   return res.send("pong");
 });
 
-app.post("/api/formCheck", cors(corsOptions), FormController.sendDataToModel, (req, res) => {
-  console.log("server.js", res.locals.result)
-  res.header("Access-Control-Allow-Origin", "*"); 
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+app.post("/api/formCheck", cors(), FormController.sendDataToModel, (req, res) => {
+  // return next(res);
+  console.log("server.js line22 :", res.locals.result);
+ // res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
+ // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   return res.status(200).send(res.locals.result);
 });
 
@@ -85,8 +88,6 @@ app.use((req, res) => res.status(404).send("Error 404"));
 // });
 
 //set port:
-//app.listen(PORT, "127.0.0.1");
-app.listen(PORT);
+app.listen(PORT, "127.0.0.1");
 
 console.log("Listening on port: ", PORT);
-

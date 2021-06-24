@@ -1,11 +1,8 @@
 const FormController = {};
+// const spawn = require("child_process").spawn;
 
-console.log("FormController called")
 FormController.sendDataToModel = (req, res, next) => {
   console.log("hey from FormController.js line 4");
-  console.log( typeof req.body);
-  console.log( typeof Object.keys(req.body)[0], JSON.parse(Object.keys(req.body)[0]))
-
   const {
     age,
     alopecia,
@@ -23,7 +20,8 @@ FormController.sendDataToModel = (req, res, next) => {
     weak,
     weightloss,
     yeast,
-  } = JSON.parse(Object.keys(req.body)[0]);
+//  } = req.body;
+    } = JSON.parse(Object.keys(req.body)[0]);
 
   /* YOU MUST USE THIS ORDER: 
     Age,Gender,pee,thirsty,weightloss,weak,hungry,yeast,blurring,itching,irritable,healing,paralysis,stiffness,alopecia,obese  
@@ -75,6 +73,10 @@ FormController.sendDataToModel = (req, res, next) => {
     res.locals.result = data.toString();
     return next();
   });
+
+  // process.on("close", (data) => {
+  //   //res.send(result);
+  // });
 };
 
 // FormController.sendDataToModelGoodOne =  (req, res, next) => {
@@ -88,4 +90,3 @@ FormController.sendDataToModel = (req, res, next) => {
 // }
 
 module.exports = FormController;
-

@@ -13,6 +13,7 @@ import {
   RadioGroup,
   Input,
 } from "@material-ui/core";
+// import { json } from "body-parser";
 
 const Form = () => {
   const [result, updateResult] = useState([]);
@@ -32,13 +33,10 @@ const Form = () => {
 
   const onSubmit = (data) => {
     console.log("line 29: ", data);
-    fetch("/api/formCheck", {
+    fetch("/http://localhost:3001/api/formCheck", {
       method: "POST",
-      // mode: "no-cors",
-      headers: {
-        "Content-Type": "Application/x-www-form-urlencoded"
-        // "Content-Type": "Application/json"
-     },
+      // headers: { "Content-Type": "Application/JSON" },
+	headers:{"Content-Type": "Application/x-www-form-urlencoded"},
       body: JSON.stringify(data),
       // body: data,
     })
@@ -54,7 +52,7 @@ const Form = () => {
         updateResult(formatResult(pred, predProb));
         handleClickOpen();
       })
-      .catch(err => console.log("error", err));
+      .catch((err) => console.log("Get Category Error :", err));
   };
 
   const formatResult = (pred, predProb) => {
@@ -88,14 +86,14 @@ const Form = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
-          <div>How old are you? hhh</div>
+          <div>How old are you?(June 21)</div>
           <Input
             type="number"
             name="age"
             required
             {...register("age")}
             inputprops={{
-              inputprops: {
+              inputProps: {
                 max: 120,
                 min: 1,
               },
@@ -386,18 +384,17 @@ const Form = () => {
       </form>
       <Dialog open={open} onClick={handleClickClose} className="formDialog">
         <h2>Result is.....</h2>
-        <p><strong>{result.desc}</strong></p>
-        {/* <p>Model Prediction: {result.pred} </p> */}
+        <p>{result.desc}</p>
+        <p>Model Prediction: {result.pred} </p>
         <p>
-          The machine learning model predicts that you are <strong>{result.predText} </strong>for prediabetic
+          The model predicts that you are {result.predText} for prediabetic
           symptoms
         </p>
-        <p>Model Confidence in Negative Prediction: {Math.floor(result.negConf * 100)} % </p>
-        <p>Model Confidence in Positive Prediction: {Math.floor(result.posConf * 100)} %</p>
+        <p>Model Confidence in Negative Prediction: {result.negConf}</p>
+        <p>Model Confidence in Positive Prediction: {result.posConf}</p>
       </Dialog>
     </>
   );
 };
 
 export default Form;
-
