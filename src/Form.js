@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, {useState} from "react";
 
 import "./index.css";
 import {
@@ -13,6 +13,7 @@ import {
   Input,
 } from "@material-ui/core";
 
+
 const useInput = (init) => {
   const [value, setValue] = useState(init);
   const onChange = (e) => {
@@ -20,7 +21,7 @@ const useInput = (init) => {
   }
   return [value, onChange]
 }
-const Form = (props) => {
+const Form = () => {
   const [age, ageOnChange] = useInput('');
   const [alopecia, alopeciaOnChange] = useInput('');
   const [blurring, blurringOnChange] = useInput('');
@@ -69,7 +70,8 @@ const Form = (props) => {
     }
 
     console.log("line 29: ", body);
-    fetch("http://localhost:3001/api/formCheck", {
+    // http://localhost:3001/api/formCheck
+    fetch("/api/formCheck", {
       method: "POST",
       // mode: "no-cors",
       headers: {
