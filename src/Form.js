@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 
 import "./index.css";
-import { useForm } from "react-hook-form";
 import {
   FormControl,
   FormLabel,
@@ -14,7 +13,30 @@ import {
   Input,
 } from "@material-ui/core";
 
-const Form = () => {
+const useInput = (init) => {
+  const [value, setValue] = useState(init);
+  const onChange = (e) => {
+    setValue(e.target.value);
+  }
+  return [value, onChange]
+}
+const Form = (props) => {
+  const [age, ageOnChange] = useInput('');
+  const [alopecia, alopeciaOnChange] = useInput('');
+  const [blurring, blurringOnChange] = useInput('');
+  const [gender, genderOnChange] = useInput('');
+  const [healing, healingOnChange] = useInput('');
+  const [hungry, hungryOnChange] = useInput('');
+  const [irritable, irritableOnChange] = useInput('');
+  const [itching, itchingOnChange] = useInput('');
+  const [obese, obeseOnChange] = useInput('');
+  const [paralysis, paralysisOnChange] = useInput('');
+  const [pee, peeOnChange] = useInput('');
+  const [stiffness, stiffnessOnChange] = useInput('');
+  const [thirsty, thirstyOnChange] = useInput('');
+  const [weak, weakOnChange] = useInput('');
+  const [weightloss, weightlossOnChange] = useInput('');
+  const [yeast, yeastOnChange] = useInput('');
   const [result, updateResult] = useState([]);
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -24,22 +46,37 @@ const Form = () => {
     setOpen(false);
   };
 
-  const {
-    register,
-    handleSubmit,
-  } = useForm();
-  //const onSubmit = (data) => console.log(data);
 
-  const onSubmit = (data) => {
-    console.log("line 29: ", data);
-    fetch("/api/formCheck", {
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    const body = {
+      age,
+      alopecia,
+      blurring,
+      gender,
+      healing,
+      hungry,
+      irritable,
+      itching,
+      obese,
+      paralysis,
+      pee,
+      stiffness,
+      thirsty,
+      weak,
+      weightloss,
+      yeast,
+    }
+
+    console.log("line 29: ", body);
+    fetch("http://localhost:3001/api/formCheck", {
       method: "POST",
       // mode: "no-cors",
       headers: {
         "Content-Type": "Application/x-www-form-urlencoded"
         // "Content-Type": "Application/json"
      },
-      body: JSON.stringify(data),
+      body: JSON.stringify(body),
       // body: data,
     })
       .then((res) => res.json())
@@ -47,18 +84,19 @@ const Form = () => {
         console.log("After converting to JSON...", data);
         const pred = data["pred"];
         let predProb = data["pred_prob"];
-        predProb = predProb.slice(1, predProb.length - 1).split(" ");
+        predProb = predProb.slice(1, predProb.length -1 ).split(" ");
         console.log("predProb", predProb);
         console.log(predProb[0]);
         console.log(predProb[1]);
         updateResult(formatResult(pred, predProb));
-        handleClickOpen();
+        // alert(result)
+        handleClickOpen(); 
       })
       .catch(err => console.log("error", err));
   };
 
   const formatResult = (pred, predProb) => {
-    let result = [];
+    // let result = [];
     if (pred === "1" && predProb[1] > 0.6) {
       result.desc = "Warning you got diabetes";
     } else if (pred === "0" && predProb[0] > 0.6) {
@@ -86,14 +124,14 @@ const Form = () => {
   */
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      {/* <form onSubmit = {onSubmitHandler}> */}
+      <form>
         <FormControl>
-          <div>How old are you? hhh</div>
+          <div>How old are you? aaa</div>
           <Input
             type="number"
             name="age"
             required
-            {...register("age")}
             inputprops={{
               inputprops: {
                 max: 120,
@@ -101,22 +139,21 @@ const Form = () => {
               },
             }}
             label="Age"
+            onChange = {ageOnChange}
           />
 
           <Grid container spacing={2}>
             <Grid container item xs={6} direction="column">
               <FormLabel component="legend">Gender</FormLabel>
-              <RadioGroup aria-label="gender" name="gender" required>
+              <RadioGroup aria-label="gender" name="gender" required onClick = {genderOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("gender")}
                   control={<Radio required={true} />}
                   label="Male"
                   required
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("gender")}
                   control={<Radio required={true} />}
                   label="Female"
                 />
@@ -124,16 +161,14 @@ const Form = () => {
               <FormLabel component="legend">
                 Do you have to pee frequently?{" "}
               </FormLabel>
-              <RadioGroup aria-label="pee" name="pee" required>
+              <RadioGroup aria-label="pee" name="pee" required onClick = {peeOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("pee")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("pee")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -141,16 +176,14 @@ const Form = () => {
               <FormLabel component="legend">
                 Are you thirsty frequently?{" "}
               </FormLabel>
-              <RadioGroup aria-label="thirsty" name="thirsty" required>
+              <RadioGroup aria-label="thirsty" name="thirsty" required onClick = {thirstyOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("thirsty")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("thirsty")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -158,16 +191,14 @@ const Form = () => {
               <FormLabel component="legend">
                 Have you recently experienced sudden weight loss?{" "}
               </FormLabel>
-              <RadioGroup aria-label="weightloss" name="weightloss" required>
+              <RadioGroup aria-label="weightloss" name="weightloss" required onClick = {weightlossOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("weightloss")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("weightloss")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -175,16 +206,14 @@ const Form = () => {
               <FormLabel component="legend">
                 Do you frequently feel physically weak?
               </FormLabel>
-              <RadioGroup aria-label="weak" name="weak" required>
+              <RadioGroup aria-label="weak" name="weak" required onClick = {weakOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("weak")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("weak")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -193,16 +222,14 @@ const Form = () => {
               <FormLabel component="legend">
                 Do you frequently feel excessively hungry?
               </FormLabel>
-              <RadioGroup aria-label="hungry" name="hungry" required>
+              <RadioGroup aria-label="hungry" name="hungry" required onClick = {hungryOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("hungry")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("hungry")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -211,16 +238,14 @@ const Form = () => {
               <FormLabel component="legend">
                 Are you experiencing genital thrush (yeast infection)?
               </FormLabel>
-              <RadioGroup aria-label="yeast" name="yeast" required>
+              <RadioGroup aria-label="yeast" name="yeast" required onClick = {yeastOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("yeast")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("yeast")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -228,16 +253,14 @@ const Form = () => {
               <FormLabel component="legend">
                 Are you experiencing visual blurring?
               </FormLabel>
-              <RadioGroup aria-label="blurring" name="blurring" required>
+              <RadioGroup aria-label="blurring" name="blurring" required onClick = {blurringOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("blurring")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("blurring")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -248,16 +271,14 @@ const Form = () => {
               <FormLabel component="legend">
                 Are you frequently irritable?{" "}
               </FormLabel>
-              <RadioGroup aria-label="irritable" name="irritable" required>
+              <RadioGroup aria-label="irritable" name="irritable" required onClick = {irritableOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("irritable")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("irritable")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -266,16 +287,14 @@ const Form = () => {
               <FormLabel component="legend">
                 Do you frequently experience itching?
               </FormLabel>
-              <RadioGroup aria-label="itching" name="itching" required>
+              <RadioGroup aria-label="itching" name="itching" required onClick = {itchingOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("itching")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("itching")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -284,16 +303,14 @@ const Form = () => {
               <FormLabel component="legend">
                 When injured, do you experience delayed healing?
               </FormLabel>
-              <RadioGroup aria-label="healing" name="healing" required>
+              <RadioGroup aria-label="healing" name="healing" required onClick = {healingOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("healing")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("healing")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -302,16 +319,14 @@ const Form = () => {
               <FormLabel component="legend">
                 Are you experiencing partial or mild paralysis?
               </FormLabel>
-              <RadioGroup aria-label="paralysis" name="paralysis" required>
+              <RadioGroup aria-label="paralysis" name="paralysis" required onClick = {paralysisOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("paralysis")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("paralysis")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -320,16 +335,14 @@ const Form = () => {
               <FormLabel component="legend">
                 Are you experiencing muscle stiffness?
               </FormLabel>
-              <RadioGroup aria-label="stiffness" name="stiffness" required>
+              <RadioGroup aria-label="stiffness" name="stiffness" required onClick = {stiffnessOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("stiffness")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("stiffness")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -338,32 +351,28 @@ const Form = () => {
                 Are you experiencing hair falling out in small patches
                 (Alopecia)?
               </FormLabel>
-              <RadioGroup aria-label="alopecia" name="alopecia" required>
+              <RadioGroup aria-label="alopecia" name="alopecia" required onClick = {alopeciaOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("alopecia")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("alopecia")}
                   control={<Radio required={true} />}
                   label="No"
                 />
               </RadioGroup>
 
               <FormLabel component="legend">Are you obese?</FormLabel>
-              <RadioGroup aria-label="obese" name="obese" required>
+              <RadioGroup aria-label="obese" name="obese" required onClick = {obeseOnChange}>
                 <FormControlLabel
                   value="1"
-                  {...register("obese")}
                   control={<Radio required={true} />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="0"
-                  {...register("obese")}
                   control={<Radio required={true} />}
                   label="No"
                 />
@@ -377,6 +386,7 @@ const Form = () => {
                 className="form-button"
                 size="medium"
                 color="primary"
+                onClick = {onSubmitHandler}
               >
                 Submit
               </Button>
