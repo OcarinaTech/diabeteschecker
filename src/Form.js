@@ -72,7 +72,7 @@ const Form = () => {
     console.log("line 29: ", body);
     // http://localhost:3001/api/formCheck
     // /api/formCheck
-    fetch("http://localhost:3001/api/formCheck", {
+    fetch("/api/formCheck", {
       method: "POST",
       // mode: "no-cors",
       headers: {
