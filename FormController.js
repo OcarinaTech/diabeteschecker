@@ -1,10 +1,9 @@
+const { typeOf } = require("react-is");
+
 const FormController = {};
 
 // console.log("FormController called")
 FormController.sendDataToModel = (req, res, next) => {
-  // console.log("hey from FormController.js line 4");
-  // console.log( typeof req.body);
-  // console.log( typeof Object.keys(req.body)[0], JSON.parse(Object.keys(req.body)[0]))
 
   const {
     age,
@@ -29,24 +28,30 @@ FormController.sendDataToModel = (req, res, next) => {
     Age,Gender,pee,thirsty,weightloss,weak,hungry,yeast,blurring,itching,irritable,healing,paralysis,stiffness,alopecia,obese  
   */
   const { spawn } = require("child_process");
-  console.log(
-    age,
-    gender,
-    pee,
-    thirsty,
-    weightloss,
-    weak,
-    hungry,
-    yeast,
-    blurring,
-    itching,
-    irritable,
-    healing,
-    paralysis,
-    stiffness,
-    alopecia,
-    obese
-  );
+  const values = {
+      age,
+      gender,
+      pee,
+      thirsty,
+      weightloss,
+      weak,
+      hungry,
+      yeast,
+      blurring,
+      itching,
+      irritable,
+      healing,
+      paralysis,
+      stiffness,
+      alopecia,
+      obese
+  };
+  
+  for(let value in values){
+    if(!values[value].match(/^[0-9]+$/)){
+      next("Data Invalid")
+    }
+  }
   const pyProg = spawn(
     "python",
     [
