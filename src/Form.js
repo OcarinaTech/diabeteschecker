@@ -130,7 +130,7 @@ const Form = () => {
       {/* <form onSubmit = {onSubmitHandler}> */}
       <form>
         <FormControl>
-          <div>How old are you? aaa</div>
+          <div>How old are you?</div>
           <Input
             type="number"
             name="age"
