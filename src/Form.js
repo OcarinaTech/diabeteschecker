@@ -130,7 +130,7 @@ const Form = () => {
       {/* <form onSubmit = {onSubmitHandler}> */}
       <form>
         <FormControl>
-          <div>How old are you? aaa</div>
+          <div>How old are you?</div>
           <Input
             type="number"
             name="age"
@@ -146,7 +146,7 @@ const Form = () => {
           />
 
           <Grid container spacing={2}>
-            <Grid container item xs={6} direction="column">
+            <Grid container item md={6} direction="column">
               <FormLabel component="legend">Gender</FormLabel>
               <RadioGroup aria-label="gender" name="gender" required onClick = {genderOnChange}>
                 <FormControlLabel
@@ -270,7 +270,7 @@ const Form = () => {
               </RadioGroup>
             </Grid>
 
-            <Grid container item xs={6} direction="column">
+            <Grid container item md={6} direction="column">
               <FormLabel component="legend">
                 Are you frequently irritable?{" "}
               </FormLabel>
