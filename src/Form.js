@@ -71,6 +71,7 @@ const Form = () => {
 
     console.log("line 29: ", body);
     // http://localhost:3001/api/formCheck
+    // /api/formCheck
     fetch("/api/formCheck", {
       method: "POST",
       // mode: "no-cors",
@@ -145,7 +146,7 @@ const Form = () => {
           />
 
           <Grid container spacing={2}>
-            <Grid container item xs={6} direction="column">
+            <Grid container item xs={12} direction="column">
               <FormLabel component="legend">Gender</FormLabel>
               <RadioGroup aria-label="gender" name="gender" required onClick = {genderOnChange}>
                 <FormControlLabel
@@ -269,7 +270,7 @@ const Form = () => {
               </RadioGroup>
             </Grid>
 
-            <Grid container item xs={6} direction="column">
+            <Grid container item xs={12} direction="column">
               <FormLabel component="legend">
                 Are you frequently irritable?{" "}
               </FormLabel>
