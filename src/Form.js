@@ -100,9 +100,9 @@ const Form = () => {
   const formatResult = (pred, predProb) => {
     // let result = [];
     if (pred === "1" && predProb[1] > 0.6) {
-      result.desc = "Warning you got diabetes";
+      result.desc = "Warning you might be at risk of diabetes";
     } else if (pred === "0" && predProb[0] > 0.6) {
-      result.desc = "You likely do not have diabetes, pred";
+      result.desc = "You likely not at risk of diabetes according to the model";
     } else {
       result.desc = "The model is not clear";
     }
@@ -129,7 +129,7 @@ const Form = () => {
       {/* <form onSubmit = {onSubmitHandler}> */}
       <form>
         <FormControl>
-          <div>How old are you? aaa</div>
+          <div>How old are you?</div>
           <Input
             type="number"
             name="age"

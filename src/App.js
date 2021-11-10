@@ -30,7 +30,7 @@ function App() {
         */}
           <Switch>
             <Route exact path="/">
-              <h1>Do you have Diabetes?</h1>
+              <h1>Are you at risk for diabetes? Find out!</h1>
               <p>Welcome to the app, please visit it here: </p>
               <Link to="/form">App</Link>
             </Route>
